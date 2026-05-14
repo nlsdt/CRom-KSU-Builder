@@ -524,6 +524,9 @@ jobs:
             echo "CONFIG_LOCALVERSION=\"-${{ inputs.kernel_localversion }}\"" >> out/.config
           fi
 
+          # ★ 最终补全依赖与默认值（该 y 就 y，该 n 就 n，避免 silentoldconfig 中断）
+          make O=out olddefconfig
+
       - name: Build Kernel Image
         run: |
           CLANG_ROOT="${GITHUB_WORKSPACE}/toolchains/${{ inputs.clang_version }}/bin"
